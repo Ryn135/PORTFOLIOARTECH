@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
-import { ScrollTrigger } from './hooks/useGSAP'
+import { gsap, ScrollTrigger } from './hooks/useGSAP'
 
 import ProceduralGroundBackground from './components/ui/procedural-ground-background'
 import Navbar from './components/Navbar'
@@ -17,19 +17,18 @@ import Footer from './sections/Footer'
 export default function App() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     })
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-    requestAnimationFrame(raf)
+    // Use GSAP ticker instead of a separate RAF loop — one shared tick
+    gsap.ticker.add((time) => lenis.raf(time * 1000))
+    gsap.ticker.lagSmoothing(0)
 
     return () => {
+      gsap.ticker.remove((time) => lenis.raf(time * 1000))
       lenis.destroy()
     }
   }, [])
