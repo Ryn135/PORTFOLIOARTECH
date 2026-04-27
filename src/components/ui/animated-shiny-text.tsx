@@ -1,5 +1,4 @@
 import * as React from "react";
-import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface AnimatedTextProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -12,63 +11,35 @@ interface AnimatedTextProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const AnimatedText = React.forwardRef<HTMLDivElement, AnimatedTextProps>(
-  (
-    {
-      text,
-      gradientColors = "linear-gradient(90deg, #000, #fff, #000)",
-      gradientAnimationDuration = 1,
-      hoverEffect = false,
-      className,
-      textClassName,
-      ...props
-    },
-    ref
-  ) => {
-    const [isHovered, setIsHovered] = React.useState(false);
-
-    const textVariants: Variants = {
-      initial: {
-        backgroundPosition: "0 0",
-      },
-      animate: {
-        backgroundPosition: "100% 0",
-        transition: {
-          duration: gradientAnimationDuration,
-          repeat: Infinity,
-          repeatType: "reverse" as const,
-        },
-      },
-    };
+  ({ text, gradientColors, gradientAnimationDuration = 3, className, textClassName, ...props }, ref) => {
+    const id = React.useId().replace(/:/g, "");
+    const animName = `shine_${id}`;
 
     return (
-      <div
-        ref={ref}
-        className={cn("flex justify-center items-center", className)}
-        {...props}
-      >
-        <motion.h1
+      <div ref={ref} className={cn("flex justify-center items-center", className)} {...props}>
+        <style>{`
+          @keyframes ${animName} {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+          }
+        `}</style>
+        <h1
           className={cn("leading-none", textClassName)}
           style={{
-            background: gradientColors,
+            background: gradientColors ?? "linear-gradient(90deg, #4338CA, #8B7FF5, #ffffff, #8B7FF5, #5B4FE9, #4338CA)",
             backgroundSize: "200% auto",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            textShadow: isHovered ? "0 0 8px rgba(255,255,255,0.3)" : "none",
+            animation: `${animName} ${gradientAnimationDuration}s linear infinite`,
           }}
-          variants={textVariants}
-          initial="initial"
-          animate="animate"
-          onHoverStart={() => hoverEffect && setIsHovered(true)}
-          onHoverEnd={() => hoverEffect && setIsHovered(false)}
         >
           {text}
-        </motion.h1>
+        </h1>
       </div>
     );
   }
 );
 
 AnimatedText.displayName = "AnimatedText";
-
 export { AnimatedText };
