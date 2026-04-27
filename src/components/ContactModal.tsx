@@ -1,4 +1,54 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+
+const SERVICES = ['Landing page', 'Software a medida', 'Diseño de marca', 'Consultoría', 'Otro']
+
+function CustomSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="w-full bg-white/5 border border-white/10 hover:border-violet-500/40 focus:border-violet-500/60 outline-none rounded-xl px-4 py-3 text-sm text-left flex items-center justify-between transition-colors"
+      >
+        <span className={value ? 'text-white' : 'text-white/20'}>{value || 'Seleccioná un servicio...'}</span>
+        <svg
+          className={`w-4 h-4 text-white/30 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          viewBox="0 0 16 16" fill="none"
+        >
+          <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute z-50 mt-2 w-full bg-[#12121F] border border-white/10 rounded-xl overflow-hidden shadow-2xl shadow-black/50">
+          {SERVICES.map(s => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => { onChange(s); setOpen(false) }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-violet-500/15 hover:text-white ${
+                value === s ? 'text-violet-300 bg-violet-500/10' : 'text-white/50'
+              }`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 interface Props {
   open: boolean
@@ -117,19 +167,7 @@ export function ContactModal({ open, onClose }: Props) {
               {/* Service */}
               <div>
                 <label className="block text-white/40 text-xs tracking-widest uppercase mb-2">¿Qué necesitás?</label>
-                <select
-                  value={fields.service}
-                  onChange={set('service')}
-                  className="w-full bg-white/5 border border-white/10 focus:border-violet-500/60 outline-none rounded-xl px-4 py-3 text-white text-sm transition-colors appearance-none"
-                  style={{ colorScheme: 'dark' }}
-                >
-                  <option value="">Seleccioná un servicio...</option>
-                  <option value="Landing page">Landing page</option>
-                  <option value="Software a medida">Software a medida</option>
-                  <option value="Diseño de marca">Diseño de marca</option>
-                  <option value="Consultoría">Consultoría</option>
-                  <option value="Otro">Otro</option>
-                </select>
+                <CustomSelect value={fields.service} onChange={(v) => setFields(p => ({ ...p, service: v }))} />
               </div>
 
               {/* Message */}
