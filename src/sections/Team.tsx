@@ -43,7 +43,7 @@ export default function Team() {
               Agustín Raminger
             </h3>
             <p className="text-violet-400/70 text-xs font-medium tracking-wider uppercase mb-5">
-              Founder · Fullstack Developer
+              Founder · React Developer
             </p>
             <p className="text-white/30 text-sm leading-relaxed">
               Diseño, desarrollo y estrategia digital. Construyo productos desde cero — del concepto al deploy.
