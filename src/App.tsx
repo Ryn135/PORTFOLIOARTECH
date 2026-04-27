@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from './hooks/useGSAP'
 
-import ProceduralGroundBackground from './components/ui/procedural-ground-background'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import Mission from './sections/Mission'
@@ -35,9 +34,6 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen">
-      {/* WebGL procedural background */}
-      <ProceduralGroundBackground />
-
       {/* Noise texture overlay */}
       <div className="noise" />
 

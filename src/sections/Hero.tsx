@@ -78,6 +78,22 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex flex-col justify-center items-start px-8 md:px-12 lg:px-20 pt-32 pb-20 overflow-hidden grid-overlay"
     >
+      {/* Animated background — solo en Hero */}
+      <div className="absolute inset-0 -z-10" style={{ background: '#07070D' }} />
+      <div className="absolute inset-0 -z-10" style={{
+        background: 'radial-gradient(ellipse 80% 60% at 20% 10%, rgba(91,79,233,0.18) 0%, transparent 60%)',
+      }} />
+      <div className="absolute inset-0 -z-10" style={{
+        background: 'radial-gradient(ellipse 60% 50% at 85% 30%, rgba(67,56,202,0.12) 0%, transparent 55%)',
+      }} />
+      <div className="absolute inset-0 -z-10" style={{
+        background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%)',
+      }} />
+      <div className="absolute inset-0 -z-10" style={{
+        background: 'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(91,79,233,0.07) 0%, transparent 70%)',
+        animation: 'bgPulse 8s ease-in-out infinite',
+      }} />
+
       {/* Background glow */}
       <div
         ref={glowRef}
