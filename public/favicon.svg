@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f0f0"/>
+      <stop offset="100%" style="stop-color:#ffffff"/>
+    </linearGradient>
+    <linearGradient id="letters" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7856ff"/>
+      <stop offset="100%" style="stop-color:#72bef4"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#7856ff" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="100" height="100" rx="22" ry="22" fill="url(#bg)" stroke="#e8e8e8" stroke-width="1"/>
+
+  <!-- AR monogram — bold, connected style -->
+  <text
+    x="50" y="68"
+    font-family="'Arial Black', 'Helvetica Neue', sans-serif"
+    font-size="52"
+    font-weight="900"
+    text-anchor="middle"
+    fill="url(#letters)"
+    filter="url(#shadow)"
+    letter-spacing="-2"
+  >AR</text>
+</svg>
