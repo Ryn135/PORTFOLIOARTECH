@@ -65,15 +65,16 @@ export function ContactModal({ open, onClose }: Props) {
     e.preventDefault()
     setStatus('sending')
     try {
-      const res = await fetch('https://formsubmit.co/ajax/araminger12@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/c861b8e71dfd6d9a8a00f0c107906d62', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: `Nuevo proyecto — ${fields.name}`,
-          nombre: fields.name,
-          email: fields.email,
-          servicio: fields.service,
-          mensaje: fields.message,
+          _subject: `✦ Nuevo proyecto — ${fields.name}`,
+          _template: 'table',
+          '👤 Nombre': fields.name,
+          '📧 Email': fields.email,
+          '🛠 Servicio': fields.service || '—',
+          '💬 Mensaje': fields.message,
         }),
       })
       if (res.ok) {
