@@ -290,19 +290,47 @@ function CourseCard({ title, platform, accentColor, delay }: {
   )
 }
 
+// ─── Language bar card ────────────────────────────────────────────────────────
+function LangCard({ lang, level, pct, color }: { lang: string; level: string; pct: number; color: string }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+  return (
+    <div ref={ref} className="border border-white/8 rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)' }}>
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-white font-bold">{lang}</span>
+        <span className="text-xs font-mono px-3 py-1 rounded-full border"
+          style={{ color, borderColor: `${color}40`, background: `${color}10` }}>{level}</span>
+      </div>
+      <div className="h-[3px] bg-white/8 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full rounded-full"
+          style={{ background: `linear-gradient(90deg, ${color}80, ${color})` }}
+          initial={{ width: '0%' }}
+          animate={inView ? { width: `${pct}%` } : { width: '0%' }}
+          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+        />
+      </div>
+    </div>
+  )
+}
+
 // Defined outside the component so the setInterval closure always captures
 // the same stable reference — avoids stale-closure undefined entries in Strict Mode
 const TERMINAL_SCRIPT = [
   '$ whoami',
-  '→ Agustín Raminger',
-  '$ cat location.txt',
-  '→ Mozart 3341, Los Polvorines, Buenos Aires',
+  '→ Agustín Raminger | 19 años | Los Polvorines, BA',
   '$ cat status.txt',
   '→ Disponible para oportunidades 🟢',
-  '$ ls skills/',
-  '→ react  typescript  javascript  hardware  soporte-IT',
+  '$ cat github.txt',
+  '→ github.com/Ryn135',
+  '$ ls stack/',
+  '→ react  typescript  javascript  html  css  tailwind  git',
+  '$ ls tools/',
+  '→ vscode  github  vite  figma  windows  linux',
+  '$ echo $IDIOMAS',
+  '→ Español (nativo)  |  Inglés (intermedio)',
   '$ echo "Listo para colaborar."',
-  '→ Listo para colaborar.',
+  '→ Listo para colaborar. ✓',
 ]
 
 // ─── Main CV component ─────────────────────────────────────────────────────────
@@ -453,8 +481,9 @@ export default function CV() {
           >
             {[
               { icon: '✉', label: 'araminger12@gmail.com', href: 'mailto:araminger12@gmail.com' },
-              { icon: '☎', label: '1139337326', href: 'tel:1139337326' },
+              { icon: '☎', label: '1139337326', href: 'tel:+541139337326' },
               { icon: '◎', label: 'Los Polvorines, BA', href: '#' },
+              { icon: '⌥', label: 'github.com/Ryn135', href: 'https://github.com/Ryn135' },
             ].map(({ icon, label, href }) => (
               <motion.a
                 key={label}
@@ -562,6 +591,8 @@ export default function CV() {
                 { label: 'Edad', value: '19', sub: 'años' },
                 { label: 'Universidad', value: 'UNGS', sub: 'Lic. Sistemas' },
                 { label: 'Experiencia IT', value: '3+', sub: 'años práctica' },
+                { label: 'Proyectos', value: '2+', sub: 'en producción' },
+                { label: 'GitHub', value: 'Ryn135', sub: 'github.com' },
                 { label: 'Estado', value: 'Open', sub: 'to work' },
               ].map((s, i) => (
                 <FadeIn key={s.label} delay={0.1 + i * 0.07}>
@@ -657,9 +688,153 @@ export default function CV() {
           </div>
         </section>
 
-        {/* ── 05 CURSOS ── */}
+        {/* ── 05 STACK TECNOLÓGICO ── */}
+        <section id="stack">
+          <FadeIn><SectionHeader number="05" title="Stack" /></FadeIn>
+
+          <div className="space-y-8">
+            {[
+              {
+                category: 'Frontend',
+                items: [
+                  { name: 'React', color: '#61DAFB' },
+                  { name: 'TypeScript', color: '#3178C6' },
+                  { name: 'JavaScript', color: '#F7DF1E' },
+                  { name: 'HTML5', color: '#E34F26' },
+                  { name: 'CSS3', color: '#1572B6' },
+                  { name: 'Tailwind CSS', color: '#06B6D4' },
+                ],
+              },
+              {
+                category: 'Herramientas',
+                items: [
+                  { name: 'Git', color: '#F05032' },
+                  { name: 'GitHub', color: '#ffffff' },
+                  { name: 'VSCode', color: '#007ACC' },
+                  { name: 'Vite', color: '#646CFF' },
+                  { name: 'Framer Motion', color: '#BB4AFF' },
+                  { name: 'GSAP', color: '#88CE02' },
+                ],
+              },
+              {
+                category: 'Sistemas & Hardware',
+                items: [
+                  { name: 'Windows', color: '#0078D4' },
+                  { name: 'Linux (básico)', color: '#FCC624' },
+                  { name: 'Diagnóstico PC', color: '#9CA3AF' },
+                  { name: 'Redes', color: '#10B981' },
+                  { name: 'Active Directory', color: '#0078D4' },
+                  { name: 'Office 365', color: '#D83B01' },
+                ],
+              },
+            ].map(({ category, items }, gi) => (
+              <FadeIn key={category} delay={gi * 0.1}>
+                <div>
+                  <p className="text-white/30 text-xs font-mono tracking-widest uppercase mb-4">{category}</p>
+                  <div className="flex flex-wrap gap-3">
+                    {items.map(({ name, color }, i) => (
+                      <motion.div
+                        key={name}
+                        initial={{ opacity: 0, y: 10, x: 0 }}
+                        whileInView={{ opacity: 1, y: 0, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: i * 0.05 }}
+                        whileHover={{ y: -3 }}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/8 text-sm font-mono cursor-default"
+                        style={{ background: 'rgba(255,255,255,0.03)' }}
+                      >
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: color }} />
+                        <span className="text-white/70">{name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 06 PROYECTOS ── */}
+        <section id="proyectos">
+          <FadeIn><SectionHeader number="06" title="Proyectos" /></FadeIn>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                title: 'ARTECH+ Portfolio',
+                desc: 'Portfolio de estudio creativo con animaciones GSAP y Framer Motion, smooth scroll con Lenis, formulario de contacto funcional y diseño dark futurista.',
+                tags: ['React', 'TypeScript', 'Tailwind', 'GSAP', 'Framer Motion'],
+                link: 'https://github.com/Ryn135/PORTFOLIOARTECH',
+                live: 'https://ryn135.github.io/PORTFOLIOARTECH/',
+                status: 'Live',
+                statusColor: '#10B981',
+              },
+              {
+                title: 'CV Interactivo',
+                desc: 'CV personal con efectos futuristas: matrix rain en canvas, nombre con glitch CSS, terminal animada, skill bars y secciones con scroll-triggered animations.',
+                tags: ['React', 'TypeScript', 'Framer Motion', 'Canvas API'],
+                link: 'https://github.com/Ryn135/PORTFOLIOARTECH',
+                live: 'https://ryn135.github.io/PORTFOLIOARTECH/?p=%2Fcv',
+                status: 'Live',
+                statusColor: '#10B981',
+              },
+            ].map(({ title, desc, tags, link, live, status, statusColor }, i) => (
+              <FadeIn key={title} delay={i * 0.15}>
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  className="border border-white/8 rounded-2xl p-7 flex flex-col gap-5 group"
+                  style={{ background: 'rgba(255,255,255,0.02)' }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-white font-bold text-lg group-hover:text-violet-200 transition-colors">{title}</h3>
+                    <span
+                      className="text-xs font-mono px-2.5 py-1 rounded-full border shrink-0"
+                      style={{ color: statusColor, borderColor: `${statusColor}40`, background: `${statusColor}10` }}
+                    >
+                      ● {status}
+                    </span>
+                  </div>
+                  <p className="text-white/50 text-sm leading-relaxed">{desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map(t => (
+                      <span key={t} className="text-xs font-mono px-2.5 py-1 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20">{t}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-4 mt-auto pt-2 border-t border-white/5">
+                    <a href={live} target="_blank" rel="noopener noreferrer"
+                      className="text-xs font-mono text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1.5">
+                      <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
+                        <path d="M1 6a5 5 0 1010 0A5 5 0 001 6zM6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                      Ver en vivo
+                    </a>
+                    <a href={link} target="_blank" rel="noopener noreferrer"
+                      className="text-xs font-mono text-white/40 hover:text-white/70 transition-colors flex items-center gap-1.5">
+                      <svg className="w-3 h-3" viewBox="0 0 12 12" fill="currentColor">
+                        <path d="M6 0C2.686 0 0 2.686 0 6c0 2.652 1.718 4.9 4.104 5.693.3.054.41-.13.41-.289v-1.018c-1.67.362-2.02-.806-2.02-.806-.272-.692-.665-.876-.665-.876-.544-.372.04-.364.04-.364.6.042.917.617.917.617.534.916 1.4.65 1.74.497.054-.387.208-.65.38-.8-1.33-.151-2.73-.665-2.73-2.958 0-.654.234-1.188.617-1.607-.062-.152-.268-.762.058-1.587 0 0 .503-.161 1.648.615A5.74 5.74 0 016 3.038c.51.002 1.022.069 1.5.201 1.144-.776 1.646-.615 1.646-.615.327.825.121 1.435.06 1.587.383.42.615.953.615 1.607 0 2.3-1.402 2.806-2.737 2.953.215.185.407.55.407 1.11v1.643c0 .16.108.345.413.287C10.285 10.896 12 8.65 12 6c0-3.314-2.686-6-6-6z"/>
+                      </svg>
+                      Código
+                    </a>
+                  </div>
+                </motion.div>
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 07 IDIOMAS ── */}
+        <section id="idiomas">
+          <FadeIn><SectionHeader number="07" title="Idiomas" /></FadeIn>
+
+          <div className="grid sm:grid-cols-2 gap-6 max-w-lg">
+            <LangCard lang="Español" level="Nativo" pct={100} color="#8B7FF5" />
+            <LangCard lang="Inglés" level="Intermedio (B1)" pct={55} color="#22D3EE" />
+          </div>
+        </section>
+
+        {/* ── 08 CURSOS ── */}
         <section id="cursos">
-          <FadeIn><SectionHeader number="05" title="Cursos" /></FadeIn>
+          <FadeIn><SectionHeader number="08" title="Cursos" /></FadeIn>
 
           <div className="grid sm:grid-cols-2 gap-6">
             <CourseCard title="React" platform="Udemy" accentColor="#61DAFB" delay={0.1} />
@@ -667,9 +842,9 @@ export default function CV() {
           </div>
         </section>
 
-        {/* ── 06 CONTACTO ── */}
+        {/* ── 09 CONTACTO ── */}
         <section id="contacto" className="pb-10">
-          <FadeIn><SectionHeader number="06" title="Contacto" /></FadeIn>
+          <FadeIn><SectionHeader number="09" title="Contacto" /></FadeIn>
 
           <FadeIn delay={0.1}>
             <div className="border border-white/8 rounded-3xl p-10 md:p-16 text-center hex-bg overflow-hidden relative"
@@ -703,15 +878,30 @@ export default function CV() {
                   araminger12@gmail.com
                 </motion.a>
                 <motion.a
-                  href="tel:1139337326"
+                  href="https://wa.me/541139337326"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-3 border border-white/15 hover:border-violet-500/50 text-white/70 hover:text-white font-mono px-8 py-4 rounded-full transition-all text-sm"
+                  className="flex items-center gap-3 border border-white/15 hover:border-green-500/50 hover:text-green-400 text-white/70 font-mono px-8 py-4 rounded-full transition-all text-sm"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
-                  1139337326
+                  WhatsApp
+                </motion.a>
+                <motion.a
+                  href="https://github.com/Ryn135"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="flex items-center gap-3 border border-white/15 hover:border-white/40 text-white/70 hover:text-white font-mono px-8 py-4 rounded-full transition-all text-sm"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub
                 </motion.a>
               </div>
             </div>
