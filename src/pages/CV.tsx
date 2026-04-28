@@ -763,8 +763,26 @@ export default function CV() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
+                title: 'Barberbox',
+                desc: 'Panel de gestión integral para barberías: punto de venta (POS), sistema de turnos online, historial de clientes y control de caja.',
+                tags: ['React', 'TypeScript', 'Tailwind'],
+                link: 'https://github.com/Ryn135',
+                live: '',
+                status: 'En desarrollo',
+                statusColor: '#F59E0B',
+              },
+              {
+                title: 'RGB Architecture',
+                desc: 'Landing page para estudio de arquitectura con diseño moderno, galería de proyectos y formulario de contacto.',
+                tags: ['React', 'TypeScript', 'Tailwind'],
+                link: 'https://github.com/Ryn135',
+                live: '',
+                status: 'En desarrollo',
+                statusColor: '#F59E0B',
+              },
+              {
                 title: 'ARTECH+ Portfolio',
-                desc: 'Portfolio de estudio creativo con animaciones GSAP y Framer Motion, smooth scroll con Lenis, formulario de contacto funcional y diseño dark futurista.',
+                desc: 'Portfolio de estudio creativo con animaciones GSAP y Framer Motion, smooth scroll con Lenis y formulario de contacto funcional.',
                 tags: ['React', 'TypeScript', 'Tailwind', 'GSAP', 'Framer Motion'],
                 link: 'https://github.com/Ryn135/PORTFOLIOARTECH',
                 live: 'https://ryn135.github.io/PORTFOLIOARTECH/',
@@ -773,7 +791,7 @@ export default function CV() {
               },
               {
                 title: 'CV Interactivo',
-                desc: 'CV personal con efectos futuristas: matrix rain en canvas, nombre con glitch CSS, terminal animada, skill bars y secciones con scroll-triggered animations.',
+                desc: 'CV personal con efectos futuristas: matrix rain en canvas, glitch CSS, terminal animada y scroll-triggered animations.',
                 tags: ['React', 'TypeScript', 'Framer Motion', 'Canvas API'],
                 link: 'https://github.com/Ryn135/PORTFOLIOARTECH',
                 live: 'https://ryn135.github.io/PORTFOLIOARTECH/?p=%2Fcv',
@@ -803,13 +821,15 @@ export default function CV() {
                     ))}
                   </div>
                   <div className="flex items-center gap-4 mt-auto pt-2 border-t border-white/5">
-                    <a href={live} target="_blank" rel="noopener noreferrer"
-                      className="text-xs font-mono text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1.5">
-                      <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
-                        <path d="M1 6a5 5 0 1010 0A5 5 0 001 6zM6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                      </svg>
-                      Ver en vivo
-                    </a>
+                    {live && (
+                      <a href={live} target="_blank" rel="noopener noreferrer"
+                        className="text-xs font-mono text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1.5">
+                        <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
+                          <path d="M1 6a5 5 0 1010 0A5 5 0 001 6zM6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        Ver en vivo
+                      </a>
+                    )}
                     <a href={link} target="_blank" rel="noopener noreferrer"
                       className="text-xs font-mono text-white/40 hover:text-white/70 transition-colors flex items-center gap-1.5">
                       <svg className="w-3 h-3" viewBox="0 0 12 12" fill="currentColor">
