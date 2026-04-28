@@ -317,19 +317,19 @@ function LangCard({ lang, level, pct, color }: { lang: string; level: string; pc
 // Defined outside the component so the setInterval closure always captures
 // the same stable reference — avoids stale-closure undefined entries in Strict Mode
 const TERMINAL_SCRIPT = [
-  '$ whoami',
+  'C:\\Users\\Agustin> whoami',
   '→ Agustín Raminger | 19 años | Los Polvorines, BA',
-  '$ cat status.txt',
+  'C:\\Users\\Agustin> type status.txt',
   '→ Disponible para oportunidades 🟢',
-  '$ cat github.txt',
+  'C:\\Users\\Agustin> type github.txt',
   '→ github.com/Ryn135',
-  '$ ls stack/',
+  'C:\\Users\\Agustin> dir stack\\',
   '→ react  typescript  javascript  html  css  tailwind  git',
-  '$ ls tools/',
+  'C:\\Users\\Agustin> dir tools\\',
   '→ vscode  github  vite  figma  windows  linux',
-  '$ echo $IDIOMAS',
+  'C:\\Users\\Agustin> echo %IDIOMAS%',
   '→ Español (nativo)  |  Inglés (intermedio)',
-  '$ echo "Listo para colaborar."',
+  'C:\\Users\\Agustin> echo Listo para colaborar.',
   '→ Listo para colaborar. ✓',
 ]
 
@@ -563,7 +563,7 @@ export default function CV() {
                   <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
                   <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
                   <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-                  <span className="ml-3 text-white/25 text-xs">~/profile — bash</span>
+                  <span className="ml-3 text-white/25 text-xs">C:\Users\Agustin — cmd</span>
                 </div>
                 {/* Lines */}
                 <div className="p-6 space-y-1.5 min-h-[220px]">
@@ -573,7 +573,7 @@ export default function CV() {
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.25 }}
-                      className={line?.startsWith('$') ? 'term-cmd' : 'term-out'}
+                      className={line?.startsWith('C:\\') ? 'term-cmd' : 'term-out'}
                     >
                       {line}
                     </motion.div>
