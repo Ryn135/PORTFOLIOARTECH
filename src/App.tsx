@@ -12,8 +12,16 @@ import Clients from './sections/Clients'
 import Team from './sections/Team'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
+import CV from './pages/CV'
 
-export default function App() {
+// Simple path detection compatible with GitHub Pages redirect (?p=)
+function getPath(): string {
+  if (typeof window === 'undefined') return '/'
+  const params = new URLSearchParams(window.location.search)
+  return params.get('p') ?? window.location.pathname ?? '/'
+}
+
+function PortfolioApp() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -55,4 +63,10 @@ export default function App() {
       <Footer />
     </div>
   )
+}
+
+export default function App() {
+  const path = getPath()
+  if (path?.startsWith('/cv')) return <CV />
+  return <PortfolioApp />
 }

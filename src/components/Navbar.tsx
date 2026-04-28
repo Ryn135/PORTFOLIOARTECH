@@ -8,6 +8,8 @@ const links = [
   { label: 'Contacto', href: 'contact' },
 ]
 
+const CV_HREF = '?p=%2Fcv'
+
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
@@ -46,6 +48,13 @@ export default function Navbar() {
             {label}
           </a>
         ))}
+        <a
+          href={CV_HREF}
+          className="text-sm text-violet-400 hover:text-violet-300 transition-colors duration-300 tracking-wider uppercase font-medium flex items-center gap-1.5"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+          Mi CV
+        </a>
       </div>
 
       <a
@@ -80,6 +89,14 @@ export default function Navbar() {
               {label}
             </a>
           ))}
+          <a
+            href={CV_HREF}
+            className="text-2xl font-bold text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-2"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+            Mi CV
+          </a>
         </div>
       )}
     </nav>
