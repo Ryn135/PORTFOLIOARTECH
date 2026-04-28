@@ -717,13 +717,15 @@ export default function CV() {
                 ],
               },
               {
-                category: 'Sistemas & Hardware',
+                category: 'Sistemas & Seguridad',
                 items: [
                   { name: 'Windows', color: '#0078D4' },
                   { name: 'Linux (básico)', color: '#FCC624' },
-                  { name: 'Diagnóstico PC', color: '#9CA3AF' },
+                  { name: 'VMware', color: '#607078' },
+                  { name: 'Virtualización', color: '#9CA3AF' },
+                  { name: 'Ciberseguridad', color: '#EF4444' },
                   { name: 'Redes', color: '#10B981' },
-                  { name: 'Active Directory', color: '#0078D4' },
+                  { name: 'Python', color: '#3776AB' },
                   { name: 'Office 365', color: '#D83B01' },
                 ],
               },
@@ -836,9 +838,12 @@ export default function CV() {
         <section id="cursos">
           <FadeIn><SectionHeader number="08" title="Cursos" /></FadeIn>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <CourseCard title="React" platform="Udemy" accentColor="#61DAFB" delay={0.1} />
-            <CourseCard title="JavaScript y TypeScript" platform="Udemy" accentColor="#F7DF1E" delay={0.2} />
+            <CourseCard title="JavaScript y TypeScript" platform="Udemy" accentColor="#F7DF1E" delay={0.15} />
+            <CourseCard title="Python" platform="Udemy" accentColor="#3776AB" delay={0.2} />
+            <CourseCard title="Ciberseguridad" platform="Udemy" accentColor="#EF4444" delay={0.25} />
+            <CourseCard title="VMware & Virtualización" platform="Udemy" accentColor="#607078" delay={0.3} />
           </div>
         </section>
 
