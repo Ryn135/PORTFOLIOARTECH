@@ -798,7 +798,7 @@ export default function CV() {
                 status: 'Live',
                 statusColor: '#10B981',
               },
-            ].map(({ title, desc, tags, link, live, status, statusColor }, i) => (
+            ].map(({ title, desc, tags, live, status, statusColor }, i) => (
               <FadeIn key={title} delay={i * 0.15}>
                 <motion.div
                   whileHover={{ y: -5 }}
@@ -830,13 +830,6 @@ export default function CV() {
                         Ver en vivo
                       </a>
                     )}
-                    <a href={link} target="_blank" rel="noopener noreferrer"
-                      className="text-xs font-mono text-white/40 hover:text-white/70 transition-colors flex items-center gap-1.5">
-                      <svg className="w-3 h-3" viewBox="0 0 12 12" fill="currentColor">
-                        <path d="M6 0C2.686 0 0 2.686 0 6c0 2.652 1.718 4.9 4.104 5.693.3.054.41-.13.41-.289v-1.018c-1.67.362-2.02-.806-2.02-.806-.272-.692-.665-.876-.665-.876-.544-.372.04-.364.04-.364.6.042.917.617.917.617.534.916 1.4.65 1.74.497.054-.387.208-.65.38-.8-1.33-.151-2.73-.665-2.73-2.958 0-.654.234-1.188.617-1.607-.062-.152-.268-.762.058-1.587 0 0 .503-.161 1.648.615A5.74 5.74 0 016 3.038c.51.002 1.022.069 1.5.201 1.144-.776 1.646-.615 1.646-.615.327.825.121 1.435.06 1.587.383.42.615.953.615 1.607 0 2.3-1.402 2.806-2.737 2.953.215.185.407.55.407 1.11v1.643c0 .16.108.345.413.287C10.285 10.896 12 8.65 12 6c0-3.314-2.686-6-6-6z"/>
-                      </svg>
-                      Código
-                    </a>
                   </div>
                 </motion.div>
               </FadeIn>
