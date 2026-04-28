@@ -317,19 +317,19 @@ function LangCard({ lang, level, pct, color }: { lang: string; level: string; pc
 // Defined outside the component so the setInterval closure always captures
 // the same stable reference — avoids stale-closure undefined entries in Strict Mode
 const TERMINAL_SCRIPT = [
-  'C:\\Users\\Agustin> whoami',
+  'C:\\Users\\ARTECH> whoami',
   '→ Agustín Raminger | 19 años | Los Polvorines, BA',
-  'C:\\Users\\Agustin> type status.txt',
+  'C:\\Users\\ARTECH> type status.txt',
   '→ Disponible para oportunidades 🟢',
-  'C:\\Users\\Agustin> type github.txt',
+  'C:\\Users\\ARTECH> type github.txt',
   '→ github.com/Ryn135',
-  'C:\\Users\\Agustin> dir stack\\',
+  'C:\\Users\\ARTECH> dir stack\\',
   '→ react  typescript  javascript  html  css  tailwind  git',
-  'C:\\Users\\Agustin> dir tools\\',
+  'C:\\Users\\ARTECH> dir tools\\',
   '→ vscode  github  vite  figma  windows  linux',
-  'C:\\Users\\Agustin> echo %IDIOMAS%',
+  'C:\\Users\\ARTECH> echo %IDIOMAS%',
   '→ Español (nativo)  |  Inglés (intermedio)',
-  'C:\\Users\\Agustin> echo Listo para colaborar.',
+  'C:\\Users\\ARTECH> echo Listo para colaborar.',
   '→ Listo para colaborar. ✓',
 ]
 
