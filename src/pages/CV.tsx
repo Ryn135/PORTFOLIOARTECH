@@ -763,10 +763,10 @@ export default function CV() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: 'Barberbox',
-                desc: 'Panel de gestión integral para barberías: punto de venta (POS), sistema de turnos online, historial de clientes y control de caja.',
-                tags: ['React', 'TypeScript', 'Tailwind'],
-                link: 'https://github.com/Ryn135',
+                title: 'Futures Barber Studio',
+                desc: 'Sistema full-stack para barberías: landing page, panel de gestión con POS, sistema de turnos, historial de clientes y app de escritorio. Monorepo con web, panel y servidor.',
+                tags: ['React', 'TypeScript', 'Tailwind', 'Node.js', 'Monorepo'],
+                link: 'https://github.com/Ryn135/Futures-barber-studio',
                 live: '',
                 status: 'En desarrollo',
                 statusColor: '#F59E0B',
