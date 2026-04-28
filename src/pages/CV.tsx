@@ -290,34 +290,37 @@ function CourseCard({ title, platform, accentColor, delay }: {
   )
 }
 
+// Defined outside the component so the setInterval closure always captures
+// the same stable reference — avoids stale-closure undefined entries in Strict Mode
+const TERMINAL_SCRIPT = [
+  '$ whoami',
+  '→ Agustín Raminger',
+  '$ cat location.txt',
+  '→ Mozart 3341, Los Polvorines, Buenos Aires',
+  '$ cat status.txt',
+  '→ Disponible para oportunidades 🟢',
+  '$ ls skills/',
+  '→ react  typescript  javascript  hardware  soporte-IT',
+  '$ echo "Listo para colaborar."',
+  '→ Listo para colaborar.',
+]
+
 // ─── Main CV component ─────────────────────────────────────────────────────────
 export default function CV() {
   const subtitle = useTypewriter('Estudiante Lic. Sistemas · Técnico IT · 19 años', 55, 900)
   const [termLines, setTermLines] = useState<string[]>([])
 
-  const terminalScript = [
-    '$ whoami',
-    '→ Agustín Raminger',
-    '$ cat location.txt',
-    '→ Mozart 3341, Los Polvorines, Buenos Aires',
-    '$ cat status.txt',
-    '→ Disponible para oportunidades 🟢',
-    '$ ls skills/',
-    '→ react  typescript  javascript  hardware  soporte-IT',
-    '$ echo "Listo para colaborar."',
-    '→ Listo para colaborar.',
-  ]
-
   useEffect(() => {
+    setTermLines([])
     let i = 0
     const id = setInterval(() => {
-      if (i < terminalScript.length) {
-        setTermLines(prev => [...prev, terminalScript[i++]])
+      if (i < TERMINAL_SCRIPT.length) {
+        setTermLines(prev => [...prev, TERMINAL_SCRIPT[i++]])
       } else {
         clearInterval(id)
       }
     }, 350)
-    return () => clearInterval(id)
+    return () => { clearInterval(id); setTermLines([]) }
   }, [])
 
   // Scroll to section helper
@@ -456,8 +459,8 @@ export default function CV() {
               <motion.a
                 key={label}
                 href={href}
-                whileHover={{ scale: 1.05, borderColor: 'rgba(91,79,233,0.6)' }}
-                className="flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded-full text-white/55 text-sm hover:text-white transition-all duration-300 font-mono group"
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded-full text-white/55 text-sm hover:text-white hover:border-violet-500/50 transition-all duration-300 font-mono group"
               >
                 <span className="text-violet-400 group-hover:scale-125 transition-transform">{icon}</span>
                 {label}
@@ -541,12 +544,12 @@ export default function CV() {
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.25 }}
-                      className={line.startsWith('$') ? 'term-cmd' : 'term-out'}
+                      className={line?.startsWith('$') ? 'term-cmd' : 'term-out'}
                     >
                       {line}
                     </motion.div>
                   ))}
-                  {termLines.length < terminalScript.length && (
+                  {termLines.length < TERMINAL_SCRIPT.length && (
                     <span className="text-violet-400 animate-pulse">█</span>
                   )}
                 </div>
